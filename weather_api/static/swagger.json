@@ -1,0 +1,83 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "API for subscribing and unsubscribing to weather notifications",
+    "version": "1.0.0",
+    "title": "Weather Notification API"
+  },
+  "basePath": "/",
+  "paths": {
+    "/subscribe": {
+      "post": {
+        "summary": "Subscribe to notifications",
+        "description": "Allows a user to subscribe to weather notifications",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User email and notification frequency",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubscribeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Subscription successful"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/unsubscribe": {
+      "post": {
+        "summary": "Unsubscribe from notifications",
+        "description": "Allows a user to unsubscribe from weather notifications",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UnsubscribeRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unsubscription successful"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string",
+          "enum": ["weekly", "biweekly", "monthly", "semiannual"]
+        }
+      }
+    },
+    "UnsubscribeRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
